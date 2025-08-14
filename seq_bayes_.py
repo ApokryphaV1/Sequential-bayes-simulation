@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import corner
 
 st.title('Sequential Bayesian Inference Simulation')
 
@@ -98,18 +99,13 @@ rows.append(["JointBayes",  "alpha+beta", s_bay_sum["mean"],  s_bay_sum["std"], 
 df = pd.DataFrame(rows, columns=["Method","Quantity","Mean","Std","Bias","RMSE"])
 st.write(df)
 
-# Scatter Plot
-st.header('Posterior Distribution Scatter Plot')
-fig, ax = plt.subplots(figsize=(6,6))
-ax.scatter(posterior_cloud_ab[:,0], posterior_cloud_ab[:,1], s=6, label="joint posterior samples (α,β)")
-ax.scatter([posterior_mean[0]], [posterior_mean[1]], marker='D', s=80, label="joint posterior mean")
-ax.scatter([seqFix_point_example[0]], [seqFix_point_example[1]], marker='s', s=80, label="SeqBayesFix point (α̂,β̂)")
-ax.scatter([alpha_true], [beta_true], marker='*', s=160, label="true (α,β)")
-ax.set_xlabel("alpha")
-ax.set_ylabel("beta")
-ax.set_title(f"Correlation ρ={rho} between x1 and x2")
-ax.legend(loc="upper right")
-ax.grid(True)
+# Corner Plot
+st.header('Posterior Distribution Corner Plot')
+st.write("Blue: Joint Bayesian Posterior Samples (from first replication)")
+st.write("Red: Distribution of Sequential Bayesian Estimators (from all replications)")
+seq_bayes_estimators = np.column_stack([alpha_seqFix, beta_seqFix])
+fig = corner.corner(posterior_cloud_ab, labels=["alpha", "beta"], truths=[alpha_true, beta_true], color='blue')
+corner.corner(seq_bayes_estimators, fig=fig, color='red')
 st.pyplot(fig)
 
 # Histograms
@@ -122,10 +118,3 @@ for name, seq, bay, tru in [
 ]:
     fig, ax = plt.subplots(figsize=(8,4))
     ax.hist(seq, bins=30, alpha=0.6, label=f"SeqBayesFix {name}")
-    ax.hist(bay, bins=30, alpha=0.6, label=f"JointBayes {name}")
-    ax.axvline(tru, linewidth=2, label=f"true {name}")
-    ax.set_xlabel(f"{name} estimate")
-    ax.set_ylabel("count")
-    ax.set_title(f"{name} estimates")
-    ax.legend()
-    st.pyplot(fig)
