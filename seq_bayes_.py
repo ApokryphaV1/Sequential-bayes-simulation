@@ -59,7 +59,7 @@ with st.sidebar:
 
     st.markdown("---")
     show_progress = st.checkbox("Show progress bar during simulation", value=False)
-    show_ols = st.checkbox("Include OLS baseline", value=True)
+    show_ols = st.checkbox("Include OLS baseline", value=False)
 
 # ===== Helpers =====
 
@@ -423,7 +423,7 @@ with st.expander("What’s happening under the hood? (math)"):
     """)
     st.latex(r"\text{Model: } y = \alpha x_1 + \beta x_2 + \gamma z + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)")
     st.latex(r"\text{Prior: }(\alpha, \beta, \gamma) \sim \mathcal{N}(\mu, \operatorname{diag}(\tau^2))")
-    st.latex(r"(\text{Joint posterior: }X^\top X/\sigma^2 + \operatorname{diag}(1/\tau^2)) \, \hat{\theta} = X^\top y/\sigma^2 + \operatorname{diag}(1/\tau^2)\,\mu")
+    st.latex(r"\text{Joint posterior: }X^\top X/\sigma^2 + \operatorname{diag}(1/\tau^2)) \, \hat{\theta} = X^\top y/\sigma^2 + \operatorname{diag}(1/\tau^2)\,\mu")
 with st.expander("Tips & caveats"):
     st.markdown("""
     - When \(|\rho| \to 1\), \(x_1\) and \(x_2\) are nearly collinear; OLS becomes unstable and the sequential estimator can be quite biased for \(\beta\).
