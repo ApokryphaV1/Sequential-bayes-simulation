@@ -333,7 +333,7 @@ with viz_tab:
 
     st.markdown("---")
     st.subheader("α vs β (clouds)")
-    fig2, ax2 = plt.subplots(figsize=(6, 5))
+    fig2, ax2 = plt.subplots(figsize=(4, 3))
     ax2.scatter(res["posterior_cloud_ab"][:, 0], res["posterior_cloud_ab"][:, 1], s=6, alpha=0.35, label="Joint posterior draws")
     ax2.scatter(res["seqFix_point_example"][0], res["seqFix_point_example"][1], s=60, marker="x", label="Sequential (1st rep)")
     ax2.scatter(np.mean(res["alpha_seq"]), np.mean(res["beta_seq"]), s=80, marker="+", label="Sequential mean (all reps)")
@@ -425,7 +425,9 @@ with st.expander("What’s happening under the hood? (math)"):
     - **Sequential Bayes (fix)**: first compute \((\alpha,\gamma)\) from the submodel, then plug these into the second-stage Bayesian update for \(\beta\).
     - **Coverage** reported above is the empirical fraction of times the 95% *marginal* credible interval contains the true value (joint posterior only).
     """)
-
+    st.latex(r"y = \alpha x_1 + \beta x_2 + \gamma z + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)")
+    st.latex(r"(\alpha, \beta, \gamma) \sim \mathcal{N}(\mu, \operatorname{diag}(\tau^2))")
+    st.latex(r"(X^\top X/\sigma^2 + \operatorname{diag}(1/\tau^2)) \, \hat{\theta} = X^\top y/\sigma^2 + \operatorname{diag}(1/\tau^2)\,\mu")
 with st.expander("Tips & caveats"):
     st.markdown("""
     - When \(|\rho| \to 1\), \(x_1\) and \(x_2\) are nearly collinear; OLS becomes unstable and the sequential estimator can be quite biased for \(\beta\).
