@@ -425,7 +425,7 @@ with st.expander("What’s happening under the hood? (math)"):
     - **Sequential Bayes (fix)**: first compute \((\alpha,\gamma)\) from the submodel, then plug these into the second-stage Bayesian update for \(\beta\).
     - **Coverage** reported above is the empirical fraction of times the 95% *marginal* credible interval contains the true value (joint posterior only).
     """)
-    st.latex(r"y = \alpha x_1 + \beta x_2 + \gamma z + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)")
+    st.latex(r"\text{Model:} y = \alpha x_1 + \beta x_2 + \gamma z + \varepsilon, \quad \varepsilon \sim \mathcal{N}(0, \sigma^2)")
     st.latex(r"(\alpha, \beta, \gamma) \sim \mathcal{N}(\mu, \operatorname{diag}(\tau^2))")
     st.latex(r"(X^\top X/\sigma^2 + \operatorname{diag}(1/\tau^2)) \, \hat{\theta} = X^\top y/\sigma^2 + \operatorname{diag}(1/\tau^2)\,\mu")
 with st.expander("Tips & caveats"):
