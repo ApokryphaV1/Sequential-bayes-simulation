@@ -333,7 +333,7 @@ with viz_tab:
 
     st.markdown("---")
     st.subheader("α vs β (clouds)")
-    fig2, ax2 = plt.subplots(figsize=(3, 2))
+    fig2, ax2 = plt.subplots(figsize=(7, 6))
     ax2.scatter(res["posterior_cloud_ab"][:, 0], res["posterior_cloud_ab"][:, 1], s=6, alpha=0.35, label="Joint posterior draws")
     ax2.scatter(res["seqFix_point_example"][0], res["seqFix_point_example"][1], s=60, marker="x", label="Sequential (1st rep)")
     ax2.scatter(np.mean(res["alpha_seq"]), np.mean(res["beta_seq"]), s=80, marker="+", label="Sequential mean (all reps)")
