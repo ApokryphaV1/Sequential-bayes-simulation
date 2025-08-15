@@ -326,9 +326,9 @@ with viz_tab:
         res["posterior_cloud"],
         labels=["alpha", "beta", "gamma"],
         truths=[alpha_true, beta_true, gamma_true],
-        color="blue",
+        color="blue",hist_kwargs={"density": True}
     )
-    corner.corner(seq_bayes_estimators, fig=fig, color="red")
+    corner.corner(seq_bayes_estimators, fig=fig, color="red",hist_kwargs={"density": True})
     st.pyplot(fig, clear_figure=True)
 
     st.markdown("---")
